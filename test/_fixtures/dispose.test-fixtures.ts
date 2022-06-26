@@ -1,3 +1,9 @@
+/**
+ * Test cases for the {@link dispose}, {@link using}, and ${@link usingAsync} functions.
+ *
+ * @copyright 2022 integer11. All rights reserved. MIT license.
+ */
+
 import { IDisposable } from "../../mod.ts";
 
 export interface IPerson {

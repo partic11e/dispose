@@ -1,31 +1,42 @@
 /**
- * Contains the class {@link DisposablePool}.
+ * Contains the class DisposablePool.
  *
- * @copyright 2021-2022 IntegerEleven. All rights reserved. MIT license.
+ * @copyright 2022 integer11. All rights reserved. MIT license.
  */
 
-import { IDisposable } from "./types.ts";
+//  #region feature-import-remote
+//  #endregion
 
+//  #region feature-import-local
 import { DisposableBase } from "./DisposableBase.ts";
-import { dispose } from "./dispose.ts";
+import { dispose } from "./functions.ts";
+//  #endregion
+
+//  #region type-import-remote
+//  #endregion
+
+//  #region type-import-local
+import { IDisposable } from "./types/mod.ts";
+//  #endregion
+
+//  #region constants-local
+//  #endregion
+
+//  #region type-export-file
+//  #endregion
 
 /**
  * A class for collecting independant {@link IDisposable}s into a single
  * {@link DisposablePool}.
  */
-export class DisposablePool<T extends { [key: string]: IDisposable }>
-  extends DisposableBase {
-  /**
-   * The resources within the {@link DisposablePool}.
-   */
-  public get resources(): T | undefined {
-    return this._disposables;
-  }
+export class DisposablePool<T extends { [key: string]: IDisposable }> extends DisposableBase {
+  //  #region static-properties
+  //  #endregion
 
-  /**
-   * The pool of {@link IDisposable} objects.
-   */
-  protected _disposables: T | undefined;
+  //  #region static-methods
+  //  #endregion
+
+  //  #region constructors
 
   /**
    * Creates a new instance of {@link DisposablePool}, with the collection of
@@ -39,7 +50,30 @@ export class DisposablePool<T extends { [key: string]: IDisposable }>
 
     this._disposables = disposables;
   }
+  //  #endregion
 
+  //  #region properties
+  /**
+   * The resources within the {@link DisposablePool}.
+   */
+  public get resources(): T | undefined {
+    return this._disposables;
+  }
+  //  #endregion
+
+  //  #region interface-implementations
+  //  #endregion
+
+  //  #region abstract-methods
+  //  #endregion
+
+  //  #region method-overrides
+  //  #endregion
+
+  //  #region native-overrides
+  //  #endregion
+
+  //  #region methods
   /**
    * A convenience method to use the pool of {@link IDisposable}s in a
    * callback, which upon completion, will dispose of the pool of
@@ -92,7 +126,26 @@ export class DisposablePool<T extends { [key: string]: IDisposable }>
 
     return this;
   }
+  //  #endregion
 
+  //  #region _static-properties
+  //  #endregion
+
+  //  #region _static-methods
+  //  #endregion
+
+  //  #region _properties
+  /**
+   * The pool of {@link IDisposable} objects.
+   */
+  protected _disposables: T | undefined;
+
+  //  #endregion
+
+  //  #region _method-overrides
+  //  #endregion
+
+  //  #region _methods
   /**
    * Disposes the pool of {@link IDisposable}s, then disposes this
    * {@link DisposablePool}.
@@ -110,4 +163,17 @@ export class DisposablePool<T extends { [key: string]: IDisposable }>
 
     this._disposables = undefined;
   }
+  //  #endregion
+
+  //  #region #static-methods
+  //  #endregion
+
+  //  #region #static-properties
+  //  #endregion
+
+  //  #region #methods
+  //  #endregion
+
+  //  #region #properties
+  //  #endregion
 }

@@ -1,48 +1,73 @@
 /**
- * Tests the features of the {@link DisposableBase}.
+ * Test the features of {@link DisposableBase}.
  *
- * @copyright 2021-2022 IntegerEleven. All rights reserved. MIT license.
+ * @copyright 2022 integer11. All rights reserved. MIT license.
  */
 
-import { assert, assertEquals, assertThrows } from "../dev_deps.ts";
+//  #region feature-import-remote
+import { assert, assertEquals, assertThrows, Testing } from "../dev_deps.ts";
+//  #endregion
 
+//  #region feature-import-local
 import { usingAsync } from "../mod.ts";
+//  #endregion
 
-import { ApiConnection, IResult, IRoot } from "./_testdata/mod.ts";
+//  #region type-import-remote
+//  #endregion
 
-Deno.test("DisposableBase", async () => {
-  const target = "https://www.swapi.tech/api";
-  const rootApi = new ApiConnection(target, {
-    "root": "",
-  });
-  let swapi: ApiConnection<IRoot>;
+//  #region type-import-local
+//  #endregion
 
-  await usingAsync(rootApi, async (root) => {
-    const resp = await root.get("root");
-    const json = await resp.json() as IResult<IRoot>;
+//  #region constants-local
+const { TestSuite, Test } = Testing.decorators;
+//  #endregion
 
-    assertEquals(rootApi, root);
-    assert(!root.hasDisposed);
+//  #region test-fixture-import
+import { ApiConnection, IResult, IRoot } from "./_fixtures/mod.ts";
+//  #endregion
 
-    await usingAsync(
-      swapi = new ApiConnection("", json.result),
-      async (api) => {
-        const resp = await api.get("films");
-        await resp.json();
+//  #region tests
+@TestSuite("DisposableBase")
+class DisposableBaseTest {
+  @Test("()")
+  public async testWithNoArgs() {
+    const target = "https://www.swapi.tech/api";
+    const rootApi = new ApiConnection(target, {
+      "root": "",
+    });
+    let swapi: ApiConnection<IRoot>;
 
-        assertEquals(swapi, api);
-        assertEquals(`${swapi}`, `[object ApiConnection{hasDisposed: false}]`);
-        assert(!api.hasDisposed);
-      },
-    );
+    await usingAsync(rootApi, async (root) => {
+      const resp = await root.get("root");
+      const json = await resp.json() as IResult<IRoot>;
 
-    assertEquals(`${swapi}`, `[object ApiConnection{hasDisposed: true}]`);
-    assertThrows(() => ApiConnection.assertNotDisposed(swapi));
-    assert(swapi.hasDisposed);
-    assertEquals(`${rootApi}`, `[object ApiConnection{hasDisposed: false}]`);
-  });
+      assertEquals(rootApi, root);
+      assert(!root.hasDisposed);
 
-  assertEquals(`${rootApi}`, `[object ApiConnection{hasDisposed: true}]`);
-  assertThrows(() => ApiConnection.assertNotDisposed(rootApi));
-  assert(rootApi.hasDisposed);
-});
+      await usingAsync(
+        swapi = new ApiConnection("", json.result),
+        async (api) => {
+          const resp = await api.get("films");
+          await resp.json();
+
+          assertEquals(swapi, api);
+          assertEquals(`${swapi}`, `[object ApiConnection{hasDisposed: false}]`);
+          assert(!api.hasDisposed);
+        },
+      );
+
+      assertEquals(`${swapi}`, `[object ApiConnection{hasDisposed: true}]`);
+      assertThrows(() => ApiConnection.assertNotDisposed(swapi));
+      assert(swapi.hasDisposed);
+      assertEquals(`${rootApi}`, `[object ApiConnection{hasDisposed: false}]`);
+    });
+
+    assertEquals(`${rootApi}`, `[object ApiConnection{hasDisposed: true}]`);
+    assertThrows(() => ApiConnection.assertNotDisposed(rootApi));
+    assert(rootApi.hasDisposed);
+  }
+}
+
+//  #endregion
+
+Testing(DisposableBaseTest);

@@ -1,7 +1,12 @@
+/**
+ * Test cases for the {@link DisposableBase} and {@link DisposablePool} class.
+ *
+ * @copyright 2022 integer11. All rights reserved. MIT license.
+ */
+
 import { DisposableBase } from "../../mod.ts";
 
-export class ApiConnection<T extends Record<string, string>>
-  extends DisposableBase {
+export class ApiConnection<T extends Record<string, string>> extends DisposableBase {
   #baseUrl?: string;
   #methodMappings?: T;
 

@@ -1,12 +1,20 @@
 /**
  * Source-level exports.
  *
- * @copyright 2021-2022 IntegerEleven. All rights reserved. MIT license.
+ * @copyright 2022 integer11. All rights reserved. MIT license.
  */
 
-export * from "./types.ts";
-export * from "./dispose.ts";
+//  #region export-types
+export * from "./types/mod.ts";
+//  #endregion
+
+//  #region export-constants
+export * from "./version.ts";
+//  #endregion
+
+//  #region export-features
+export * from "./functions.ts";
 export * from "./DisposableBase.ts";
 export * from "./DisposablePool.ts";
-export * from "./ObjectDisposedException.ts";
-export * from "./version.ts";
+export * from "./exceptions/mod.ts";
+//  #endregion

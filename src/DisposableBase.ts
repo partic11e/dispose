@@ -1,20 +1,41 @@
 /**
- * Contains the abstract class {@link DisposableBase}.
+ * Contains the abstract class DisposableBase.
  *
- * @copyright 2021-2022 IntegerEleven. All rights reserved. MIT license.
+ * @copyright 2022 integer11. All rights reserved. MIT license.
  */
 
-import { IDisposable } from "./types.ts";
+//  #region feature-import-remote
+//  #endregion
 
-import { ObjectDisposedException } from "./ObjectDisposedException.ts";
+//  #region feature-import-local
+import { ObjectDisposedException } from "./exceptions/ObjectDisposedException.ts";
+//  #endregion
 
+//  #region type-import-remote
+//  #endregion
+
+//  #region type-import-local
+import { IDisposable } from "./types/mod.ts";
+//  #endregion
+
+//  #region constants-local
+//  #endregion
+
+//  #region type-export-file
+//  #endregion
+
+// #region feature-export-file
 /**
- * **This is an abstract class intended to be a base class of other classes and
+ * **An abstract class intended to be a base class of other classes and
  * cannot be instantiated on its own.**
  *
  * An abstract class implementation of the `IDisposable` interface.
  */
 export abstract class DisposableBase implements IDisposable {
+  //  #region static-properties
+  //  #endregion
+
+  //  #region static-methods
   /**
    * Asserts that `disposable`, an `DisposableBase` instance, has not been
    * disposed, optionally with a specific message.
@@ -29,18 +50,30 @@ export abstract class DisposableBase implements IDisposable {
   ): void {
     disposable.assertNotDisposed(message);
   }
+  //  #endregion
 
+  //  #region constructors
+  //  #endregion
+
+  //  #region properties
   /**
    * Whether this `DisposableBase`'s resources have been freed up.
    */
   public get hasDisposed(): boolean {
     return this._hasDisposed;
   }
-  /**
-   * Internal placeholder value for `hasDisposed`.
-   */
-  protected _hasDisposed = false;
+  //  #endregion
 
+  //  #region interface-implementations
+  //  #endregion
+
+  //  #region abstract-methods
+  //  #endregion
+
+  //  #region method-overrides
+  //  #endregion
+
+  //  #region native-overrides
   /**
    * Returns the string representation of this `DisposableBase`.
    *
@@ -50,7 +83,9 @@ export abstract class DisposableBase implements IDisposable {
     const { hasDisposed, constructor } = this;
     return `[object ${constructor.name}{hasDisposed: ${hasDisposed}}]`;
   }
+  //  #endregion
 
+  //  #region methods
   /**
    * Initiates the process of freeing up unmanaged resources and finalizing
    * this `DisposableBase`.
@@ -64,7 +99,25 @@ export abstract class DisposableBase implements IDisposable {
       this._hasDisposed = true;
     }
   }
+  //  #endregion
 
+  //  #region _static-properties
+  //  #endregion
+
+  //  #region _static-methods
+  //  #endregion
+
+  //  #region _properties
+  /**
+   * Internal placeholder value for `hasDisposed`.
+   */
+  protected _hasDisposed = false;
+  //  #endregion
+
+  //  #region _method-overrides
+  //  #endregion
+
+  //  #region _methods
   /**
    * Asserts that this object has not been disposed, optionally with a
    * specific message.
@@ -83,7 +136,6 @@ export abstract class DisposableBase implements IDisposable {
       throw exception;
     }
   }
-
   /**
    * The handler method for freeing up resources when `dispose()` is called.
    *
@@ -91,4 +143,18 @@ export abstract class DisposableBase implements IDisposable {
    * implemented to free up unmanaged resources.
    */
   protected onDispose(): void {}
+  //  #endregion
+
+  //  #region #static-methods
+  //  #endregion
+
+  //  #region #static-properties
+  //  #endregion
+
+  //  #region #methods
+  //  #endregion
+
+  //  #region #properties
+  //  #endregion
 }
+// #endregion
